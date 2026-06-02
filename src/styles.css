@@ -54,7 +54,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -467,6 +468,7 @@ th {
 .field {
   display: grid;
   gap: 8px;
+  flex: 1 1 220px;
 }
 
 .manual-fields label span,
@@ -478,7 +480,8 @@ th {
   text-transform: uppercase;
 }
 
-input {
+input,
+select {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -487,9 +490,32 @@ input {
   outline: 0;
 }
 
-.manual-fields input {
+.manual-fields input,
+.manual-fields select {
   min-height: 42px;
   padding: 0 12px;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .panel {
@@ -763,107 +789,3 @@ th {
     --sidebar-width: 100%;
   }
 
-  .sidebar-title {
-    padding: 24px 22px;
-  }
-
-  .nav-main {
-    padding: 18px 14px;
-  }
-
-  .carriage-list {
-    display: flex;
-    flex-direction: row;
-    max-height: none;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 8px;
-  }
-
-  .carriage-nav {
-    flex: 0 0 148px;
-    min-width: 0;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .content {
-    padding: 24px 16px 34px;
-  }
-
-  .app-shell,
-  .sidebar,
-  .nav-main,
-  .sidebar-actions,
-  .content,
-  .page-header,
-  .header-tools {
-    width: 100%;
-    max-width: 100vw;
-    min-width: 0;
-  }
-
-  .page-header h1,
-  .login-heading h1 {
-    font-size: 2rem;
-  }
-
-  .header-tools,
-  .summary-strip,
-  .manual-fields {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .summary-strip span,
-  .clock {
-    width: 100%;
-    min-width: 0;
-    text-align: left;
-  }
-
-  .filter-panel {
-    padding: 18px;
-  }
-
-  .filter-row {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .chart {
-    min-width: 620px;
-  }
-
-  .login-card {
-    width: 100%;
-    padding: 34px 24px;
-  }
-
-  .metric-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-
-@media (max-width: 420px) {
-  .sidebar-title {
-    align-items: flex-start;
-  }
-
-  .sidebar-title span {
-    font-size: 1.1rem;
-  }
-
-  .alarm-card {
-    padding: 20px;
-  }
-
-  th,
-  td {
-    padding: 14px 16px;
-  }
-}

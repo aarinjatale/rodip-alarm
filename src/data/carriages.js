@@ -35,6 +35,7 @@ function seeded(seed) {
 
 export function generateAlarms() {
   const now = new Date();
+
   return carriageStats.reduce((acc, carriage) => {
     const random = seeded(carriage.id * 4099);
     const rows = [];

@@ -11,9 +11,8 @@ export function Dashboard({ navigate }) {
     <main className="content dashboard-content">
       <header className="page-header dashboard-header">
         <div>
-          <p className="eyebrow">Fleet Overview</p>
-          <h1>Carriage Monitoring</h1>
-          <p>Carriages with active alarms are shown below. All 13 carriages remain available in navigation.</p>
+          <p className="eyebrow">Rodip System</p>
+          <h1>Alarm Monitoring</h1>
         </div>
         <div className="header-tools">
           <Clock />

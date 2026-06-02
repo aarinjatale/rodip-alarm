@@ -9,26 +9,48 @@ import { formatInputDate } from "../utils/date";
 export function CarriagePage({ id, alarmsByCarriage }) {
   const carriage = carriageStats.find((item) => item.id === id) || carriageStats[0];
   const [filter, setFilter] = useState("all");
-  const [from, setFrom] = useState(formatInputDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)));
+  const [alarmName, setAlarmName] = useState("all");
+  const [severity, setSeverity] = useState("all");
+  const [from, setFrom] = useState(
+    formatInputDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
+  );
   const [to, setTo] = useState(formatInputDate(new Date()));
+
+  const alarmOptions = useMemo(() => {
+    const alarms = alarmsByCarriage[carriage.id] || [];
+    return [...new Set(alarms.map((alarm) => alarm.message))].sort();
+  }, [alarmsByCarriage, carriage.id]);
 
   const filteredAlarms = useMemo(() => {
     const alarms = alarmsByCarriage[carriage.id] || [];
     const startOfToday = new Date();
     startOfToday.setHours(0, 0, 0, 0);
 
+    let result = alarms;
+
     if (filter === "today") {
-      return alarms.filter((alarm) => alarm.timestamp >= startOfToday);
+      result = result.filter((alarm) => alarm.timestamp >= startOfToday);
     }
 
     if (filter === "manual") {
       const fromDate = from ? new Date(from) : new Date(0);
       const toDate = to ? new Date(to) : new Date();
-      return alarms.filter((alarm) => alarm.timestamp >= fromDate && alarm.timestamp <= toDate);
+
+      result = result.filter(
+        (alarm) => alarm.timestamp >= fromDate && alarm.timestamp <= toDate
+      );
     }
 
-    return alarms;
-  }, [alarmsByCarriage, carriage.id, filter, from, to]);
+    if (alarmName !== "all") {
+      result = result.filter((alarm) => alarm.message === alarmName);
+    }
+
+    if (severity !== "all") {
+      result = result.filter((alarm) => alarm.severity === severity);
+    }
+
+    return result;
+  }, [alarmsByCarriage, carriage.id, filter, from, to, alarmName, severity]);
 
   return (
     <main className="content detail-content">
@@ -43,7 +65,20 @@ export function CarriagePage({ id, alarmsByCarriage }) {
         <Clock />
       </header>
 
-      <FilterBar filter={filter} setFilter={setFilter} from={from} setFrom={setFrom} to={to} setTo={setTo} />
+      <FilterBar
+        filter={filter}
+        setFilter={setFilter}
+        from={from}
+        setFrom={setFrom}
+        to={to}
+        setTo={setTo}
+        alarmName={alarmName}
+        setAlarmName={setAlarmName}
+        alarmOptions={alarmOptions}
+        severity={severity}
+        setSeverity={setSeverity}
+      />
+
       <AlarmChart alarms={filteredAlarms} />
       <AlarmHistory alarms={filteredAlarms} />
     </main>
