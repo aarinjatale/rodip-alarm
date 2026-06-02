@@ -11,7 +11,7 @@ export function Dashboard({ navigate }) {
     <main className="content dashboard-content">
       <header className="page-header dashboard-header">
         <div>
-          <p className="eyebrow">Rodip System</p>
+          <p className="eyebrow">RoDIP System</p>
           <h1>Alarm Monitoring</h1>
         </div>
         <div className="header-tools">

@@ -27,7 +27,7 @@ export function Sidebar({
     <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
       <div className="sidebar-title">
         <div>
-          <span>RODIP System</span>
+          <span>RoDip System</span>
           <small>Carriage alarms</small>
         </div>
         <button
